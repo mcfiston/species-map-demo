@@ -1,0 +1,13 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {
+      "description": "Survey team active June 2025"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [34.65, -1.25]
+    }
+  }]
+}
