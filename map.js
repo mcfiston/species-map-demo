@@ -5,7 +5,7 @@ function initMap() {
   });
 
   // Load GeoJSON file with points
-  map.data.loadGeoJson('data/points.geojson');
+  map.data.loadGeoJson('data/samples.geojson');
 
   // Optional: Add info window on click
   const infoWindow = new google.maps.InfoWindow();
