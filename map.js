@@ -9,12 +9,12 @@ function initMap() {
 
   // Load default layers
   loadLayer("range", "data/species_range.geojson");
-  loadLayer("threat", "data/samples.geojson"); // change if you have a threat layer
+  loadLayer("samples", "data/samples.geojson"); // change if you have a threat layer
   loadLayer("survey", "data/surveys.geojson");
 
   // Hook up checkboxes
   document.getElementById("rangeLayer").addEventListener("change", toggleLayer);
-  document.getElementById("threatLayer").addEventListener("change", toggleLayer);
+  document.getElementById("samplesLayer").addEventListener("change", toggleLayer);
   document.getElementById("surveyLayer").addEventListener("change", toggleLayer);
 }
 
