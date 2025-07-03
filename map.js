@@ -1,50 +1,22 @@
-let map, rangeLayer, threatLayer, surveyLayer;
-
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -1.2, lng: 34.7 },
-    zoom: 8,
+  const map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -1.2921, lng: 36.8219 },
+    zoom: 6,
   });
 
-  // Species range
-  rangeLayer = new google.maps.Data();
-  rangeLayer.loadGeoJson('data/species_range.geojson');
-  rangeLayer.setStyle({ fillColor: '#008000', strokeWeight: 1, fillOpacity: 0.4 });
-  rangeLayer.setMap(map);
+  // Load GeoJSON file with points
+  map.data.loadGeoJson('data/points.geojson');
 
-  // Threats
-  threatLayer = new google.maps.Data();
-  threatLayer.loadGeoJson('data/threats.geojson');
-  threatLayer.setStyle({ icon: 'icons/threat.png' });
-  threatLayer.setMap(map);
+  // Optional: Add info window on click
+  const infoWindow = new google.maps.InfoWindow();
 
-  // Surveys
-  surveyLayer = new google.maps.Data();
-  surveyLayer.loadGeoJson('data/surveys.geojson');
-  surveyLayer.setStyle({ icon: 'icons/survey.png' });
-  surveyLayer.setMap(map);
+  map.data.addListener('click', event => {
+    const name = event.feature.getProperty('name');
+    const position = event.latLng;
 
-  // Popups
-  [rangeLayer, threatLayer, surveyLayer].forEach(layer => {
-    layer.addListener('click', function(event) {
-      const info = event.feature.getProperty('description') || 'No info';
-      const infowindow = new google.maps.InfoWindow({
-        content: `<div style="max-width:200px">${info}</div>`,
-        position: event.latLng
-      });
-      infowindow.open(map);
-    });
-  });
-
-  // Layer toggles
-  document.getElementById('rangeLayer').addEventListener('change', e => {
-    rangeLayer.setMap(e.target.checked ? map : null);
-  });
-  document.getElementById('threatLayer').addEventListener('change', e => {
-    threatLayer.setMap(e.target.checked ? map : null);
-  });
-  document.getElementById('surveyLayer').addEventListener('change', e => {
-    surveyLayer.setMap(e.target.checked ? map : null);
+    infoWindow.setContent(`<strong>${name}</strong>`);
+    infoWindow.setPosition(position);
+    infoWindow.open(map);
   });
 }
 
